@@ -50,7 +50,6 @@ class soundcloud:
 
 
 def Download(obj):
-
 	print( obj.get_song_src( obj.get_song_id(input('Link: ')) ) )
 	print('\n\n')
 
@@ -63,6 +62,7 @@ def main():
 	while True:
 		try:
 			Download(me)
+	
 		except Exception as error:
 			print(error)
 
