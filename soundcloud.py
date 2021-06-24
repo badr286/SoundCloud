@@ -12,8 +12,8 @@ class soundcloud:
 	def __init__(self):
 		self.client_id = get_client_id()
 
-	def get_song_id(self, share_link):
-		src = soup( get(share_link).text, 'html.parser')
+	def get_song_id(self, link):
+		src = soup( get(link).text, 'html.parser')
 		return src.find('meta',{'property':'twitter:app:url:iphone'})['content'].split(':')[-1]
 
 
@@ -48,3 +48,8 @@ class soundcloud:
 				break
 
 		return last_stream
+	
+	def download(self, link):
+		song_id = self.get_song_id(link)
+		src = self.get_song_src(song_id)
+		return src
