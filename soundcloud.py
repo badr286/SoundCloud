@@ -9,7 +9,7 @@ def get_client_id():
 
 class soundcloud:
 
-	def __init__(self, client_id):
+	def __init__(self):
 		self.client_id = get_client_id()
 
 	def get_song_id(self, share_link):
