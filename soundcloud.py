@@ -1,10 +1,16 @@
 from requests import get
 from bs4 import BeautifulSoup as soup
 
+def get_client_id():
+	script_url = soup( get('https://soundcloud.com/').text, 'html.parser'  ).findAll('script')[-2]['src']
+	script = get(script_url).text
+	client_id = script.split(',client_id:')[1].split('"')[1]
+	return client_id
+
 class soundcloud:
 
 	def __init__(self, client_id):
-		self.client_id = client_id
+		self.client_id = get_client_id()
 
 	def get_song_id(self, share_link):
 		src = soup( get(share_link).text, 'html.parser')
@@ -42,31 +48,3 @@ class soundcloud:
 				break
 
 		return last_stream
-
-
-
-
-
-
-
-def Download(obj):
-	print( obj.get_song_src( obj.get_song_id(input('Link: ')) ) )
-	print('\n\n')
-
-
-
-def main():
-	client_id = input('Client Id: ')
-	me = soundcloud(client_id)
-
-	while True:
-		try:
-			Download(me)
-	
-		except Exception as error:
-			print(error)
-
-
-if __name__ == '__main__':
-	main()
-
